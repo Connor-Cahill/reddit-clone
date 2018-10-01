@@ -1,0 +1,13 @@
+body {
+    margin-left: 15px;
+}
+
+nav {
+    margin-left: 25px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    
+}
