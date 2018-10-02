@@ -21,6 +21,11 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 })
 
+//LOGIN
+app.get('/login', (req, res) => {
+    res.render('login.handlebars')
+})
+
 
 /*****************
 POST ROUTES
@@ -39,5 +44,29 @@ app.post('/sign-up', (req, res) => {
         return res.status(400).send({ err: err });
     });
 });
+
+///LOGIN POST
+app.post('/login', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    //find this username
+    User.findOne({username}, 'username password').then((user) => {
+        if (! user) {
+            //if not user
+            return res.status(401).send({message: 'Wrong Username or Password'});
+        }
+        //create token
+        const token = jwt.sign(
+            {_id: user._id, username: user.username }, process.env.SECRET,
+            {expiresIn: '60 days'}
+        );
+        //set cookie / redirect to route
+        res.cookie('nToken', token, {maxAge: 900000, httpOnly: true});
+        res.redirect('/');
+    }).catch(err => {
+        console.log(err.message);
+    })
+})
+
 
 }
