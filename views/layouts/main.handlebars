@@ -12,12 +12,17 @@
     <body>
         <div class="container">
             <div class="row">
-                <nav class="nav" id="navbar">
+                <nav class="custom-nav" id="navbar">
                   <a class="btn btn-primary navbar-btn" href="/">Home</a>
                   <a href="/posts/new" class="btn btn-primary navbar-btn">New Post</a>
-                  <a href="/login" class="btn btn-primary navbar-btn-right">Login</a>
-                  <a href="/sign-up" class="btn btn-primary navbar-btn-right">Sign Up</a>
-                  <a href="/logout">Logout</a>
+              </nav>
+              <nav class="nav-right">
+                  {{#if currentUser}}
+                    <a href="/logout" class="btn btn-primary navbar-btn-right">Logout</a>
+                {{else}}
+                    <a href="/login" class="btn btn-primary navbar-btn-right">Login</a>
+                    <a href="/sign-up" class="btn btn-primary navbar-btn-right">Sign Up</a>
+                {{/if}}
                 </nav>
             </div>
         </div>
