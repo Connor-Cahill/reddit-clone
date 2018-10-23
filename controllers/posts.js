@@ -3,6 +3,85 @@ const Comment = require('../models/comment')
 const User = require('../models/user');
 
 module.exports = function(app) {
+
+/*************************************************
+----VOTING (up votes, down votes, and vote score)------
+***************************************************/
+///Up Votes Route *******
+// app.put('/posts/:id/vote-up', (req, res) => {
+//     if(req.user) {
+//         Post.findById(req.params.id).exec(post => {
+//             console.log('Here is the ID you are looking for ----> ' + req.params.id);
+//             console.log('post is this  -----> ' + post)
+//             post.upVotes.push(req.user._id)
+//             post.voteScore = post.voteScore + 1;
+//             post.save();
+//             res.sendStatus(200);
+//         })
+//     } else {
+//         return res.sendStatus(401).send('You need to be signed in to do that!')
+//     }
+//
+// })
+
+
+app.put('/posts/:id/vote-up', (req, res) => {
+    if(req.user) {
+        Post.findById(req.params.id).then(post => {
+            console.log('this is post ====> ' + post);
+            post.upVotes.push(req.user._id);
+            post.voteScore = post.voteScore + 1;
+            return post.save();
+        }).then(post => {
+            return res.sendStatus(200);
+        }).catch(err => {
+            console.log(err.message);
+        })
+    } else {
+        res.sendStatus(401).send('User must be signed in to do that');
+    }
+
+})
+
+
+/////Down Votes Route *******
+// app.put('/posts/:id/vote-down', (req, res) => {
+//     if(req.user) {
+//         Post.findById(req.params.id).exec(post => {
+//             console.log('this is the post -----> ' + post)
+//             post.downVotes.push(req.user._id)
+//             post.voteScore = post.voteScore - 1;
+//             post.save();
+//             res.sendStatus(200);
+//         })
+//     } else {
+//         return res.sendStatus(401).send('You need to be logged in to do that!');
+//     }
+//
+// })
+
+app.put('/posts/:id/vote-down', (req, res) => {
+    if(req.user) {
+        Post.findById(req.params.id).then(post => {
+            post.downVotes.push(req.user._id);
+            post.voteScore = post.voteScore - 1;
+            return post.save();
+        }).then(post => {
+            return res.sendStatus(200);
+        }).catch(err => {
+            console.log(err.message)
+        })
+    } else {
+        res.sendStatus(401).send('You need to be signed in to do that!')
+    }
+
+})
+
+
+
+
+
+
 /************************
 GET ROUTES
 ***********************/

@@ -1,8 +1,20 @@
 <div class="col-xs-12 comment-indent">
-    <p class="lead">{{this.content}}</p>
-    <small>User: {{this.author.username}}</small><br>
-    <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
+    <div class="parent-comment">
+        <p class="lead">{{this.content}}</p>
+        <small>User: {{this.author.username}}</small><br>
+        <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
+    </div>
     {{#each this.comments}}
-    {{> comment}}
+    <div class="first-child-comment">
+        <p class="lead">{{this.content}}</p>
+        <small>User: {{this.author.username}}</small><br>
+        <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
+    </div>
+    {{#each this.comments}}  <!-- Need to get content to show for comments on replies (c on c on c) --> 
+    <div class="second-child-comment">
+        <p class="lead">{{this.content}}</p>
+        <small>User: {{this.author.username}}</small>
+    </div>
+    {{/each}}
     {{/each}}
 </div>

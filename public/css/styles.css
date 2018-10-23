@@ -18,6 +18,23 @@ nav {
 }
 
 
-.indention {
+.first-child-comment {
+    margin-left: 24px;
+
+}
+
+.second-child-comment {
     margin-left: 32px;
+}
+
+
+
+/*--------------------------------
+--------------POSTS-SHOW SECTION-------
+-----------------------------------*/
+
+.voting-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

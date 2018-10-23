@@ -8,6 +8,12 @@
                 </div>
                 <a href="{{this.url}}" target="_blank">{{this.url}}</a>
                 <div class="text-right">{{this.subreddit}}</div>
+                <form class="vote-up" data-id="{{this._id}}">
+                    <button type="submit">Up Vote</button>
+                </form>
+                <form class="vote-down"data-id="{{this._id}}">
+                    <button type="submit">Down Vote</button>
+                </form>
             </li>
             {{/each}}
         </ul>
