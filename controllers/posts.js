@@ -13,7 +13,7 @@ GET ROUTES
     app.get('/', (req, res) => {
         const currentUser = req.user;
         Post.find({}).then((posts) => {
-            console.log(currentUser)
+            console.log('this is the current user -----> ' + currentUser)
             res.render('posts-index', {posts: posts, currentUser: currentUser})
         }).catch(err => {
             console.log(err.message);
@@ -35,7 +35,7 @@ app.get('/n/:subreddit', function(req, res) {
     })
 })
 
-///////POST
+///////POST//////
 app.post('/n/:subreddit', function(req, res) {
     Post.find({ subreddit: req.params.subreddit}).then((posts) => {
         res.render('posts-index', { posts })
@@ -47,11 +47,32 @@ app.post('/n/:subreddit', function(req, res) {
     app.get('/posts/new', (req, res) => {
         res.render('posts-new');
     });
-
+///SHOW SINGLE POST
     app.get('/posts/:id', (req, res) => {
         const currentUser = req.user;
         //Find the post
-        Post.findById(req.params.id).populate('comments').then(post => {
+        Post.findById(req.params.id).populate('author').populate({
+            path: 'comments',
+            populate: {
+                path: 'author'
+            }
+        }).populate({
+            path: 'comments',
+            populate: {
+                path: 'comments',
+                populate: {
+                    path: 'author'
+                }
+            }
+        }).populate({
+            path: 'comments',
+            populate: {
+                path: 'comments',
+                populate: {
+                    path: 'author'
+                }
+            }
+        }).then(post => {
             res.render('posts-show', { post, currentUser })
         }).catch(err => {
             console.log(err.message);

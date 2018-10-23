@@ -37,7 +37,7 @@ app.post('/sign-up', (req, res) => {
     user.save().then((user) => {
         // console.log(user);
         let token = jwt.sign({_id: user._id}, process.env.SECRET, { expiresIn: '60 days' });
-        res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
+        res.cookie('nToken', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
         res.redirect('/');
     }).catch(err => {
         console.log(err.message);
@@ -45,7 +45,8 @@ app.post('/sign-up', (req, res) => {
     });
 });
 
-///LOGIN POST
+///LOGIN POST ------- This route is unfinished, need to add comparePassword Method  --- maybe switch to bcrypt-node
+
 app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -55,13 +56,13 @@ app.post('/login', (req, res) => {
             //if not user
             return res.status(401).send({message: 'Wrong Username or Password'});
         }
-        //create token
+        //create token  ------
         const token = jwt.sign(
             {_id: user._id, username: user.username }, process.env.SECRET,
             {expiresIn: '60 days'}
         );
         //set cookie / redirect to route
-        res.cookie('nToken', token, {maxAge: 900000, httpOnly: true});
+        res.cookie('nToken', token, {maxAge: 24 * 60 * 60 * 1000, httpOnly: true});
         res.redirect('/');
     }).catch(err => {
         console.log(err.message);

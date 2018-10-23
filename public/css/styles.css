@@ -9,5 +9,15 @@ nav {
 .nav {
     display: flex;
     flex-direction: row;
-    
+
+}
+
+
+.comment-indent {
+    margin-left: 16px;
+}
+
+
+.indention {
+    margin-left: 32px;
 }

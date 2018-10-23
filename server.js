@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const Post = require('./models/post');
 const commentController = require('./controllers/comments-controller');
 const authController = require('./controllers/auth');
+const repliesController = require('./controllers/replies');
 ///setup cookie parser
 app.use(cookieParser());
 
@@ -19,8 +20,7 @@ app.use(cookieParser());
 
 
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/reddit-clone', {useNewUrlParser: true})
-mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error: '))
+
 
 
 const checkAuth = (req, res, next) => {
@@ -41,9 +41,12 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+///// Initialize Controllers
 commentController(app);
-postController(app);
+postController(app)
 authController(app);
+repliesController(app);
 ///hello world route
 // app.get('/', (req, res) => {
 //     res.render('home');

@@ -8,17 +8,32 @@ module.exports = function(app) {
 POST ROUTES
 ************************/
 
-//crete comment
+////new create route
+// app.post('/posts/:postId/comments', (req, res) => {
+//     Post.findById(req.params.postId).exec(function(err, post) {
+//         if(err) {console.log(err.message)}
+//         //unshift new comments
+//         post.comments.unshift(req.body);
+//         post.save();
+//
+//         return res.redirect(`/posts/${post._id}`);
+//     })
+// })
+
+
+
+//crete comment ----- OLD comment create route ---
 app.post('/posts/:postId/comments', function(req, res) {
     //creating instance of model
     if (req.user) {
     const comment = new Comment(req.body)
-    comment.author = req.user._id
+    comment.author = req.user._id;
+
 
     //save instance of comment model to DB
     comment.save().then((comment) => {
+
         return User.findById(req.user._id)
-        console.log('in first then block -----> ' + comment);
     }).then(user => {
         console.log('in second then block ------> ' + comment);
             user.comments.unshift(comment);
@@ -29,7 +44,7 @@ app.post('/posts/:postId/comments', function(req, res) {
             return post.save()
         }).then((post) => {
             console.log(comment);
-            res.redirect('/')
+            res.redirect(`/posts/${req.params.postId}`);
         }).catch(err => {
             console.log(err.message);
         })

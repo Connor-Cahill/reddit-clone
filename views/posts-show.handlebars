@@ -6,12 +6,32 @@
     </div>
 </div>
 <form action="/posts/{{post._id}}/comments" method="post">
+    <input type="hidden" name="postId" value="{{post._id}}">
     <textarea name="content" class="form-control" placeholder="Comment"></textarea>
     <div class="text-right">
         <button type="submit">Save</button>
     </div>
 </form>
 
+<!-- {{#each post.comments}}
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-2">
+        <p class="light">{{this.author.username}}</p>
+        <p>{{this.content}}</p>
+        <a href="/posts/{{../post._id}}/comments/{{this._id}}/replies/new">Reply</a>
+    </div>
+</div>
+{{/each}} -->
 {{#each post.comments}}
-    <p>{{this.content}}</p>
+
+<div class="row">
+    {{> comment}}
+</div>
+<hr>
 {{/each}}
+
+
+
+
+
+<a href="/" class="call-to-action-btn">Back To Feed</a>
