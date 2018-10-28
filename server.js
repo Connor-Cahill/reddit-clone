@@ -12,6 +12,7 @@ const Post = require('./models/post');
 const commentController = require('./controllers/comments-controller');
 const authController = require('./controllers/auth');
 const repliesController = require('./controllers/replies');
+const bcrypt = require('bcrypt-nodejs');
 ///setup cookie parser
 app.use(cookieParser());
 
@@ -25,10 +26,10 @@ mongoose.Promise = global.Promise
 
 const checkAuth = (req, res, next) => {
     console.log("Checking authentication");
-    if (typeof req.cookies.nToken === 'undefined' || req.cookies.nToken === null) {
+    if (typeof req.cookies.Token === 'undefined' || req.cookies.Token === null) {
         req.user = null;
     } else {
-        const token = req.cookies.nToken;
+        const token = req.cookies.Token;
         const decodedToken = jwt.decode(token, { complete: true}) || {};
         req.user = decodedToken.payload;
     }
