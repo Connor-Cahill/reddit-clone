@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema ({
     createdAt: {type: String},
     title: {type: String, require: true},
-    url: {type: String, require: true},
+    url: {type: String, require: false},
     summary: {type: String, require: true},
     subreddit: { type: String, require: true },
     author: {type: Schema.Types.ObjectId, ref: 'User', require: true },

@@ -1,15 +1,17 @@
 <!-- posts-show -->
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-        <a href="{{post.url}}" class="lead">{{post.title}}</a>
+        <div class="header-content">
+            <h2 class="show-title"><a href="{{post.url}}">{{post.title}}</a></h2>
+            <p class="vote-score-display">Vote Score: {{post.voteScore}}</p>
+        </div>
         <p>{{post.summary}}</p>
         <div class="voting-info">
-            <p class="vote-score-display">Vote Score: {{post.voteScore}}</p>
             <form class="vote-up" data-id="{{post._id}}">
-                <button type="submit" class="btn btn-primary">Up Vote</button>
+                <button type="submit" class="btn btn-primary show-upvote"><i class="far fa-thumbs-up"></i></button>
             </form>
             <form class="vote-down"data-id="{{post._id}}">
-                <button type="submit" class="btn btn-primary">Down Vote</button>
+                <button type="submit" class="btn btn-primary show-downvote"><i class="far fa-thumbs-down"></i></button>
             </form>
         </div>
     </div>
@@ -18,10 +20,10 @@
     <input type="hidden" name="postId" value="{{post._id}}">
     <textarea name="content" class="form-control" placeholder="Comment"></textarea>
     <div class="text-right">
-        <button type="submit">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </form>
-
+<hr>
 <!-- {{#each post.comments}}
 <div class="row">
     <div class="col-sm-4 col-sm-offset-2">

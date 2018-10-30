@@ -4,16 +4,18 @@
             {{#each posts}}
             <li class="list-group-item">
                 <div class="lead">
-                    <a class="lead" href="/posts/{{this._id}}">{{this.title}}</a>
+                    <h2><a href="/posts/{{this._id}}" class="title-link">{{this.title}}</a></h2>
                 </div>
                 <a href="{{this.url}}" target="_blank">{{this.url}}</a>
                 <div class="text-right">{{this.subreddit}}</div>
-                <form class="vote-up" data-id="{{this._id}}">
-                    <button type="submit">Up Vote</button>
-                </form>
-                <form class="vote-down"data-id="{{this._id}}">
-                    <button type="submit">Down Vote</button>
-                </form>
+                <div class="btn-container">
+                    <form class="vote-up" data-id="{{this._id}}">
+                        <button type="submit" class="btn btn-primary upvote"><i class="far fa-thumbs-up"></i></button>
+                    </form>
+                    <form class="vote-down"data-id="{{this._id}}">
+                        <button type="submit" class="btn btn-primary downvote"><i class="far fa-thumbs-down"></i></button>
+                    </form>
+                </div>
             </li>
             {{/each}}
         </ul>
