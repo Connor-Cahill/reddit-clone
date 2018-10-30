@@ -5,7 +5,7 @@
             <li class="list-group-item">
                 <div class="lead">
                     <h2><a href="/posts/{{this._id}}" class="title-link">{{this.title}}</a></h2>
-                    <small>this.author</small>
+                    <small>{{this.author.username}}</small>
                 </div>
                 {{#if this.url}}
                 <a href="{{this.url}}" target="_blank">Link to article</a>

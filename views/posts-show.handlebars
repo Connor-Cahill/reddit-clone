@@ -1,8 +1,9 @@
 <!-- posts-show -->
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-        <div class="header-content">
+        <div class="show-header-content">
             <h2 class="show-title"><a href="{{post.url}}">{{post.title}}</a></h2>
+            <small>{{this.author.username}}</small>
             <p class="vote-score-display">Vote Score: {{post.voteScore}}</p>
         </div>
         <p>{{post.summary}}</p>
