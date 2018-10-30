@@ -6,7 +6,9 @@
                 <div class="lead">
                     <h2><a href="/posts/{{this._id}}" class="title-link">{{this.title}}</a></h2>
                 </div>
-                <a href="{{this.url}}" target="_blank">{{this.url}}</a>
+                {{#if this.url}}
+                <a href="{{this.url}}" target="_blank">Link to article</a>
+                {{/if}}
                 <div class="text-right">{{this.subreddit}}</div>
                 <div class="btn-container">
                     <form class="vote-up" data-id="{{this._id}}">
