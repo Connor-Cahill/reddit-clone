@@ -7,24 +7,6 @@ module.exports = function(app) {
 /*************************************************
 ----VOTING (up votes, down votes, and vote score)------
 ***************************************************/
-///Up Votes Route *******
-// app.put('/posts/:id/vote-up', (req, res) => {
-//     if(req.user) {
-//         Post.findById(req.params.id).exec(post => {
-//             console.log('Here is the ID you are looking for ----> ' + req.params.id);
-//             console.log('post is this  -----> ' + post)
-//             post.upVotes.push(req.user._id)
-//             post.voteScore = post.voteScore + 1;
-//             post.save();
-//             res.sendStatus(200);
-//         })
-//     } else {
-//         return res.sendStatus(401).send('You need to be signed in to do that!')
-//     }
-//
-// })
-
-
 app.put('/posts/:id/vote-up', (req, res) => {
     if(req.user) {
         Post.findById(req.params.id).then(post => {
@@ -92,7 +74,6 @@ GET ROUTES
     app.get('/', (req, res) => {
         const currentUser = req.user;
         Post.find({}).then((posts) => {
-            console.log('this is the current user -----> ' + currentUser)
             res.render('posts-index', {posts: posts, currentUser: currentUser})
         }).catch(err => {
             console.log(err.message);
@@ -173,15 +154,13 @@ POST ROUTES
 
     ///CREATE
     app.post('/posts', (req, res) => {
-        if (req.user) {///initiates instance of Post model
+        if (req.user) {
         const post = new Post(req.body);
-        console.log('in IF Block -------> ')
         post.author = req.user._id
         //SAVE Post model to db
         post.save((err, post) => {
             return User.findById(req.user._id).then((user) => {
                 user.posts.unshift(post);
-                console.log('In THEN Block ...');
                 user.save();
                 //redirect to the post
                 res.redirect('/posts/' + post._id)
